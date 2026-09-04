@@ -1,0 +1,24 @@
+name: Azure Well-Architected AI Reviewer
+description: Review Terraform, OpenTofu, and Bicep for Azure architecture, risk, and cost findings.
+author: Ahmed Hassan
+branding:
+  icon: check-circle
+  color: blue
+inputs:
+  path:
+    description: Repository path to review
+    required: false
+    default: .
+  fail-on-hold:
+    description: Fail when an error or critical finding is detected
+    required: false
+    default: "true"
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        python3 -m pip install "${{ github.action_path }}"
+        args=("${{ inputs.path }}" --rules "${{ github.action_path }}/rules/azure-rules.json" --format sarif --output results.sarif)
+        if [[ "${{ inputs.fail-on-hold }}" == "true" ]]; then args+=(--fail-on-hold); fi
+        azure-architecture-review "${args[@]}"

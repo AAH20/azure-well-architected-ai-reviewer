@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "runs": [
+    {
+      "results": [],
+      "tool": {
+        "driver": {
+          "informationUri": "https://github.com/AAH20/azure-well-architected-ai-reviewer",
+          "name": "Azure Well-Architected AI Reviewer",
+          "rules": []
+        }
+      }
+    }
+  ],
+  "version": "2.1.0"
+}

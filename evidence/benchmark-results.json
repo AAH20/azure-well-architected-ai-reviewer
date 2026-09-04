@@ -1,0 +1,29 @@
+{
+  "cases": [
+    {
+      "actual": [
+        "AZR-K8S-001",
+        "AZR-NET-001",
+        "AZR-STO-001",
+        "AZR-TLS-001"
+      ],
+      "expected": [
+        "AZR-K8S-001",
+        "AZR-NET-001",
+        "AZR-STO-001",
+        "AZR-TLS-001"
+      ],
+      "id": "unsafe-terraform-baseline",
+      "passed": true
+    },
+    {
+      "actual": [],
+      "expected": [],
+      "id": "safe-bicep-negative-control",
+      "passed": true
+    }
+  ],
+  "pass_rate": 1.0,
+  "passed": 2,
+  "total": 2
+}

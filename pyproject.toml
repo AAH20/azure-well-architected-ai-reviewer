@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "azure-well-architected-ai-reviewer"
+version = "0.1.0"
+description = "Azure architecture and business-impact review for Terraform, OpenTofu, and Bicep"
+requires-python = ">=3.11"
+
+[project.scripts]
+azure-architecture-review = "azure_arch_review.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0",
+  "rules": [
+    {
+      "rule_id": "AZR-NET-001",
+      "title": "Public network access enabled",
+      "description": "A data-plane service is explicitly reachable through its public endpoint, increasing exposure and complicating private-path assurance.",
+      "pattern": "(public_network_access_enabled\\s*=\\s*true|publicNetworkAccess\\s*:\\s*['\"]?Enabled)",
+      "file_extensions": [".tf", ".bicep"],
+      "severity": "error",
+      "pillar": "Security and Networking",
+      "remediation": "Disable public network access and validate Private Endpoint, private DNS, routing and trusted operational access.",
+      "monthly_cost_delta": 35,
+      "annual_failure_probability": 0.08,
+      "failure_impact": 50000
+    },
+    {
+      "rule_id": "AZR-STO-001",
+      "title": "Blob public access allowed",
+      "description": "The storage account permits public blob access and can enable accidental anonymous publication.",
+      "pattern": "(allow_blob_public_access\\s*=\\s*true|allowBlobPublicAccess\\s*:\\s*true)",
+      "file_extensions": [".tf", ".bicep"],
+      "severity": "critical",
+      "pillar": "Security",
+      "remediation": "Set blob public access to false and use scoped identity-based access.",
+      "monthly_cost_delta": 0,
+      "annual_failure_probability": 0.05,
+      "failure_impact": 120000
+    },
+    {
+      "rule_id": "AZR-OBS-001",
+      "title": "Insufficient log retention",
+      "description": "Retention below 30 days can prevent incident investigation and operational trend analysis.",
+      "pattern": "(retention_in_days\\s*=\\s*([0-9]|[12][0-9])$|retentionInDays\\s*:\\s*([0-9]|[12][0-9])$)",
+      "file_extensions": [".tf", ".bicep"],
+      "severity": "warning",
+      "pillar": "Operational Excellence",
+      "remediation": "Set retention from workload investigation, regulatory and cost requirements; use at least 30 days for this baseline.",
+      "monthly_cost_delta": 75,
+      "annual_failure_probability": 0.12,
+      "failure_impact": 15000
+    },
+    {
+      "rule_id": "AZR-K8S-001",
+      "title": "Single-node production capacity",
+      "description": "A node count of one creates a node-level single point of failure for a production Kubernetes workload.",
+      "pattern": "(node_count|count)\\s*=\\s*1\\s*#\\s*production",
+      "file_extensions": [".tf"],
+      "severity": "error",
+      "pillar": "Reliability",
+      "remediation": "Use a workload-justified minimum node count, autoscaling and disruption testing across availability zones.",
+      "monthly_cost_delta": 436,
+      "annual_failure_probability": 0.25,
+      "failure_impact": 32800
+    },
+    {
+      "rule_id": "AZR-TLS-001",
+      "title": "Legacy TLS minimum configured",
+      "description": "The resource permits a protocol version below TLS 1.2.",
+      "pattern": "(min_tls_version|minTlsVersion|minimumTlsVersion)\\s*[:=]\\s*['\"]?(TLS)?1_[01]",
+      "file_extensions": [".tf", ".bicep"],
+      "severity": "error",
+      "pillar": "Security",
+      "remediation": "Require TLS 1.2 or later and test every dependent client before rollout.",
+      "monthly_cost_delta": 0,
+      "annual_failure_probability": 0.03,
+      "failure_impact": 80000
+    },
+    {
+      "rule_id": "AZR-FIN-001",
+      "title": "Premium SKU requires economic justification",
+      "description": "A Premium service tier is being selected without an adjacent unit-economics declaration.",
+      "pattern": "sku_name\\s*=\\s*['\"]Premium",
+      "file_extensions": [".tf"],
+      "severity": "warning",
+      "pillar": "Cost Optimization",
+      "remediation": "Record demand, utilization, SLO and unit-cost assumptions in the architecture decision record.",
+      "monthly_cost_delta": 800,
+      "annual_failure_probability": 1.0,
+      "failure_impact": 9600
+    }
+  ]
+}

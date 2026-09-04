@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "cases": [
+    {
+      "id": "unsafe-terraform-baseline",
+      "path": "../tests/fixtures/unsafe.tf",
+      "expected_rule_ids": ["AZR-K8S-001", "AZR-NET-001", "AZR-STO-001", "AZR-TLS-001"]
+    },
+    {
+      "id": "safe-bicep-negative-control",
+      "path": "../tests/fixtures/safe.bicep",
+      "expected_rule_ids": []
+    }
+  ]
+}

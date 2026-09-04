@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run deterministic tests
+        run: bash scripts/validate.sh
+      - name: Install Bicep CLI
+        run: az bicep install
+      - name: Compile optional Azure hosted profile
+        run: az bicep build --file infra/main.bicep --outfile /tmp/main.json

@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+build/
+*.egg-info/
+.terraform/
+*.tfstate*
+results.sarif

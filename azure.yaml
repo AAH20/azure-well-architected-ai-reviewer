@@ -1,0 +1,6 @@
+name: azure-well-architected-ai-reviewer
+metadata:
+  template: azure-well-architected-ai-reviewer@0.1.0
+infra:
+  provider: bicep
+  path: infra
